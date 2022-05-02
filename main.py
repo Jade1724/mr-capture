@@ -19,5 +19,16 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
 
+
+    # dark blue
+    # h 242
+    # s 94
+    # v 60
+
+    # lighter blue 
+    # h 242
+    # s 83
+    # v 100
+
 video.release()
 cv2.destroyAllWindows()
