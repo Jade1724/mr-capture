@@ -1,8 +1,10 @@
 import cv2
-from cv2 import VideoCapture
 import numpy as np
 
-video = VideoCapture(0)
+video = cv2.VideoCapture(0)
+image = cv2.imread('assets/ocean.jpg')
+image = cv2.resize(image, (640, 480))
+
 
 while True:
     ret, frame = video.read()
@@ -15,20 +17,13 @@ while True:
     upper_blue   = np.array([179, 255, 255])
     
     mask = cv2.inRange(hsv, lower_blue, upper_blue)
-    cv2.imshow('Frame', mask)
+    res = cv2.bitwise_and(frame, frame, mask=mask)
+    bg_mask = frame - res
+    blue_screen = np.where(bg_mask==0, image, bg_mask)
+
+    cv2.imshow('Frame', blue_screen)
     if cv2.waitKey(1) == ord('q'):
         break
-
-
-    # dark blue
-    # h 242
-    # s 94
-    # v 60
-
-    # lighter blue 
-    # h 242
-    # s 83
-    # v 100
 
 video.release()
 cv2.destroyAllWindows()
